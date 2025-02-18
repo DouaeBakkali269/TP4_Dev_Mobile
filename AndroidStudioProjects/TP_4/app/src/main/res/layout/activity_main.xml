@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Blue Header -->
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:text="My Application"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="22dp"
+        android:padding="16dp"
+        android:textStyle="bold" />
+
+    <!-- ListView that appears below the header -->
+    <ListView
+        android:id="@+id/liste1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical"/>
+
+</LinearLayout>
