@@ -1,10 +1,13 @@
 package com.example.exo3;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,5 +96,24 @@ public class MainActivity extends AppCompatActivity {
 
         // now setting the simpleAdapter to the ListView
         listView.setAdapter(simpleAdapter);
+
+        //Ajouter le code source suivant pour mettre un écouteur sur la listview : Ajouter le code source suivant pour mettre un écouteur sur la listview :
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // Adjust position if you have a header view
+                int position = i - listView.getHeaderViewsCount();
+                if (position >= 0) { // Prevent clicking on header
+                    HashMap<String, Object> map = (HashMap<String, Object>) listView.getItemAtPosition(i);
+
+                    AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
+                    adb.setTitle("Sélection Item");
+                    adb.setMessage("Nom: " + map.get("appName") + "\nDescription: " + map.get("appDescription"));
+                    adb.setPositiveButton("OK", null);
+                    adb.show();
+                }
+            }
+        });
+
     }
 }
