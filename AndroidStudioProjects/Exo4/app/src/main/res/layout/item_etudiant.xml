@@ -1,13 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+    android:padding="12dp"
+    android:background="#F5F5F5"
+    android:layout_marginHorizontal="8dp"
+    android:radius="8dp"
+    android:elevation="2dp"
+    android:layout_marginBottom="16dp"
+    android:layout_gravity="center">
 
-    <TextView android:id="@+id/nom"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:textSize="18sp" android:textColor="#000"/>
+    <TextView
+        android:id="@+id/nom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp" />
 
-    <TextView android:id="@+id/code"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_below="@id/nom" android:textSize="14sp" android:textColor="#555"/>
+    <TextView
+        android:id="@+id/code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nom"
+        android:textSize="14sp"
+        android:textStyle="bold"
+ />
+
+    <!-- Nouveau RatingBar -->
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/code"
+        android:layout_marginTop="8dp"
+        android:numStars="5"
+        android:stepSize="1"
+        android:isIndicator="true" />
 </RelativeLayout>

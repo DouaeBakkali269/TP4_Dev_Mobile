@@ -15,26 +15,6 @@ public class NewsActivity extends AppCompatActivity {
     private EtudiantsApplication app;
     private TextView emptyView;
 
-    // ActivityResultLauncher for EditActivity
-    private final ActivityResultLauncher<Intent> editActivityLauncher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Intent data = result.getData();
-                    int position = data.getIntExtra("position", -1);
-
-                    if (position != -1) {
-                        String newNom = data.getStringExtra("nom");
-                        String newCode = data.getStringExtra("code");
-
-                        // Update student details
-                        app.getEtudiants().get(position).setNom(newNom);
-                        app.getEtudiants().get(position).setCode(newCode);
-                        adapter.notifyDataSetChanged();
-                        updateEmptyViewVisibility();
-                    }
-                }
-            });
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +35,38 @@ public class NewsActivity extends AppCompatActivity {
             Intent intent = new Intent(NewsActivity.this, EditActivity.class);
             intent.putExtra("nom", app.getEtudiants().get(position).getNom());
             intent.putExtra("code", app.getEtudiants().get(position).getCode());
+            intent.putExtra("niveau", app.getEtudiants().get(position).getNiveau()); // Ajouter le niveau
             intent.putExtra("position", position);
             editActivityLauncher.launch(intent);
         });
 
         updateEmptyViewVisibility(); // Handle initial empty state
     }
+
+    // ActivityResultLauncher for EditActivity
+    private final ActivityResultLauncher<Intent> editActivityLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    Intent data = result.getData();
+                    int position = data.getIntExtra("position", -1);
+
+                    if (position != -1) {
+                        String newNom = data.getStringExtra("nom");
+                        String newCode = data.getStringExtra("code");
+                        float newNiveau = data.getFloatExtra("niveau", 0); // Récupérer le niveau
+
+                        // Update student details
+                        Etudiant etudiant = app.getEtudiants().get(position);
+                        etudiant.setNom(newNom);
+                        etudiant.setCode(newCode);
+                        etudiant.setNiveau((int) newNiveau); // Mettre à jour le niveau
+
+                        adapter.notifyDataSetChanged();
+                        updateEmptyViewVisibility();
+                    }
+                }
+            });
+
 
     @Override
     protected void onResume() {

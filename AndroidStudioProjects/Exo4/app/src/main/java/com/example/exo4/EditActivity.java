@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RatingBar;
 
 public class EditActivity extends Activity {
     private int position = -1;
     private EditText nomEdit;
     private EditText codeEdit;
+    private RatingBar ratingBar; // Nouveau RatingBar
     private EtudiantsApplication app;
 
     @Override
@@ -19,6 +21,7 @@ public class EditActivity extends Activity {
 
         nomEdit = findViewById(R.id.nom_edit);
         codeEdit = findViewById(R.id.code_edit);
+        ratingBar = findViewById(R.id.ratingBar); // Initialiser le RatingBar
 
         app = (EtudiantsApplication) getApplication();
         Intent intent = getIntent();
@@ -29,6 +32,7 @@ public class EditActivity extends Activity {
                 Etudiant etudiant = app.getEtudiants().get(position);
                 nomEdit.setText(etudiant.getNom());
                 codeEdit.setText(etudiant.getCode());
+                ratingBar.setRating(etudiant.getNiveau()); // Afficher le niveau
             }
         }
     }
@@ -36,11 +40,13 @@ public class EditActivity extends Activity {
     public void onValider(View view) {
         String nom = nomEdit.getText().toString().trim();
         String code = codeEdit.getText().toString().trim();
+        float niveau = ratingBar.getRating(); // Récupérer la valeur du RatingBar
 
         if (!nom.isEmpty() && !code.isEmpty()) {
             Intent resultIntent = new Intent();
             resultIntent.putExtra("nom", nom);
             resultIntent.putExtra("code", code);
+            resultIntent.putExtra("niveau", niveau); // Ajouter la valeur du RatingBar
             resultIntent.putExtra("position", position);
             setResult(RESULT_OK, resultIntent);
         } else {
